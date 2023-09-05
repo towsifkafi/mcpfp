@@ -1,6 +1,5 @@
-//import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-auto';
 //import adapter from '@sveltejs/adapter-cloudflare';
-import adapter from '@sveltejs/adapter-netlify';
 import path from "path";
 
 /** @type {import('@sveltejs/kit').Config} */
