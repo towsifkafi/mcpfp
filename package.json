@@ -19,7 +19,6 @@
 	"type": "module",
 	"dependencies": {
 		"canvas": "^2.11.2",
-		"node": "^20.5.1",
 		"skia-canvas": "^1.0.1"
 	}
 }
