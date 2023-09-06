@@ -12,7 +12,12 @@ async function generatePfp(username, ctx, type) {
 		
 
 		const skinURL = await getSkin(username);
-		const skinImage = await loadImage(skinURL);
+		let skinImage;
+		try {
+			skinImage = await loadImage(skinURL);
+		} catch(err) {
+			skinImage = await loadImage(`https://minotar.net/skin/${username}`);
+		}
 		const shading = await loadImage(`${prefix}/20x20pshading.png`);
 		const backdrop = await loadImage(`${prefix}/backdropshading.png`);
 
