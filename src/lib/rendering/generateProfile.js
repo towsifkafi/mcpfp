@@ -2,7 +2,7 @@ import { getSkin } from "./mojang";
 import { loadImage } from "skia-canvas";
 const prefix = process.env.NODE_ENV === "development" ? "http://localhost:5173" : "https://pfp.arcticbd.net";
 
-async function generatePfp(username, ctx, type) {
+async function generatePfp(username, ctx, type, data = false) {
 	try {
 		if (!username) {
 			drawFailed(ctx);
@@ -10,8 +10,14 @@ async function generatePfp(username, ctx, type) {
 		}
 
 		
+		let skinURL;
+		if(data) {
+			//console.log(username)
+			skinURL = username
+		} else {
+			skinURL = await getSkin(username)
+		}
 
-		const skinURL = await getSkin(username);
 		let skinImage;
 		try {
 			skinImage = await loadImage(skinURL);

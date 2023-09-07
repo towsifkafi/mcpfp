@@ -1,7 +1,6 @@
-<div id="wrapper">
-    <span><h1>The API is currently being worked on!</h1></span>
-    <br />
-    <span><a href="/"> return to homepage ↩ </a></span>
-</div>
-
-
+<script>
+    import { browser } from '$app/environment';
+    if (browser) { // to prevent error window is not defined, because it's SSR
+        window.location.href = '/';
+    }
+</script>

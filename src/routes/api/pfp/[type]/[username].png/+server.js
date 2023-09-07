@@ -4,7 +4,7 @@ import { Canvas } from "skia-canvas";
 import { json } from '@sveltejs/kit';
 
 export async function GET({ params, url }) {
-	const username = params.username;
+	let username = params.username;
 	if (!username) {
 		return json({
 			status: 400,
@@ -21,6 +21,7 @@ export async function GET({ params, url }) {
 	try {
 
 		const searchParams = url.searchParams;
+		const data = searchParams.get("data");
 		const type = params.type
 		const gradient = searchParams.get("gradient");
 		const colours = gradient ? gradient.split("-").filter(v => v !== "").map(colour => `#${colour}`) : null;
@@ -31,12 +32,16 @@ export async function GET({ params, url }) {
 		ctx.imageSmoothingEnabled = false;
 
 		changeGradient(ctx, colours)
-		await generatePfp(username, ctx, type);
+		if(data) {
+			await generatePfp(data, ctx, type, true);
+		} else {
+			await generatePfp(username, ctx, type);
+		}
 
 		const dataURL = await canvas.png;
-		console.log(dataURL)
+		//console.log(dataURL)
 		
-
+		console.log(username)
         return new Response(dataURL);
 		
 
