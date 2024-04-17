@@ -1,6 +1,6 @@
 import { getSkin } from "./mojang";
 import { loadImage } from "skia-canvas";
-const prefix = process.env.NODE_ENV === "development" ? "http://localhost:5173" : "https://minecraftpfp.com";
+const prefix = process.env.NODE_ENV === "development" ? "http://localhost:5173" : "https://pfp.arcticbd.net";
 
 async function generatePfp(username, ctx, type) {
 	try {
