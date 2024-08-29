@@ -14,3 +14,4 @@ vite.config.ts.timestamp-*
 
 .idx/
 .vscode/
+.vite/
