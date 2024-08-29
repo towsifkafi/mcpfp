@@ -1,38 +1,27 @@
-# create-svelte
+# mcpfp-api
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a modified fork of [MauritsWilke/mcpfp](https://github.com/MauritsWilke/mcpfp) to generate minecraft pfp using API
 
-## Creating a project
+## Installation
 
-If you're seeing this, you've probably already done this step. Congrats!
-
+Clone the repository from the command line
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+git clone https://github.com/towsifkafi/mcpfp.git
+cd mcpfp
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
+Then install the required the dependencies
+```bash
+npm install
+``` 
+You can start the dev server using
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
-
+But if you want to run this API server in production, you have to build the server & you can use the `ecosystem.config.cjs` using pm2.
 ```bash
 npm run build
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```bash
+pm2 start ecosystem.config.js
+```
