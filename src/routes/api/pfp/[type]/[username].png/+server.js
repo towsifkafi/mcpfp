@@ -20,22 +20,32 @@ export async function GET({ params, url }) {
 
 	try {
 
+		const origin = url.origin
+
 		const searchParams = url.searchParams;
 		const data = searchParams.get("data");
-		const type = params.type
 		const gradient = searchParams.get("gradient");
+		let nobg = searchParams.get("no-background");
+		let flip = searchParams.get("flip");
+
+		const overlay = params.type
 		const colours = gradient ? gradient.split("-").filter(v => v !== "").map(colour => `#${colour}`) : null;
+
+		let props = searchParams.get("props");
 
 		const canvas = new Canvas(300, 300);
 		const ctx = canvas.getContext("2d");
 		ctx.scale(16, 16)
 		ctx.imageSmoothingEnabled = false;
 
-		changeGradient(ctx, colours)
+		if(nobg !== "true") changeGradient(ctx, colours)
+		if(flip === "true") flip = true
+		if(!props) props = "" 
+
 		if(data) {
-			await generatePfp(data, ctx, type, true);
+			await generatePfp(origin, data, ctx, overlay, true, flip, props);
 		} else {
-			await generatePfp(username, ctx, type);
+			await generatePfp(origin, username, ctx, overlay, false, flip, props);
 		}
 
 		const dataURL = await canvas.png;

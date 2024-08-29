@@ -1,10 +1,20 @@
 <script>
     import { page } from '$app/stores';
-    let types = "{type}"
+    import { generateQuery } from '$lib/scripts/utils';
+
+    let types = "{overlay}"
     let username = "{username}"
     let user = "Dinnerbone"
-    let type = "normal"
+    let overlay = "normal"
     let data = ""
+
+    let no_bg = false;
+    let flip = false;
+
+    let color1 = ""
+    let color2 = ""
+
+    let props = "";
 </script>
 <main>
     <h2><img class="img" src="https://minotar.net/avatar/Suss" alt="steve :)"> mcpfp - modified</h2>
@@ -20,22 +30,49 @@
         <p>Minecraft full body skin image with types for custom img gen</p>
         <code class="get">GET /api/pfp/{types}/{username}.png</code>
         <p>Available types: <code>normal</code>,<code>warn</code>,<code>mute</code>,<code>jail</code>,<code>ban</code>,<code>kick</code></p>
-        <p>Example: <code class="link">{$page.url}api/pfp/{type}/{user}.png{data ? `?data=${data}` : ``}</code></p>
+        <p>Example: <code class="link">{$page.url}api/pfp/{overlay}/{user}.png{generateQuery([
+            { data, "no-background": no_bg ? "true" : "" },
+            { data, "props": props.length ? props.join(",") : "" },
+            { data, "gradient": !no_bg && color1 && color2 ? `${color1.replace("#", "")}-${color2.replace("#", "")}` : "" }
+        ])}</code></p>
         <div class="box">
-            <img src="{$page.url}api/pfp/{type}/{user}.png{data ? `?data=${data}` : ``}" alt="">
-            <div class="box2">
-                <p>Username</p>
-                <input type="text" bind:value={user}>
-                <p>Type</p>
-                <select name="types" id="types" bind:value={type}>
-                    <option value="normal">normal</option>
-                    <option value="warn">warn</option>
-                    <option value="mute">mute</option>
-                    <option value="jail">jail</option>
-                    <option value="ban">ban</option>
-                </select>
-                <p>Data</p>
-                <input type="text" bind:value={data}>
+            <div class="imgbox">
+                <img src="{$page.url}api/pfp/{overlay}/{user}.png{generateQuery([
+                    { data, "no-background": no_bg ? "true" : "" },
+                    { data, "props": props.length ? props.join(",") : "" },
+                    { data, "gradient": !no_bg && color1 && color2 ? `${color1.replace("#", "")}-${color2.replace("#", "")}` : "" }
+                ])}" alt="">
+                <div class="box2">
+                    <p>Username</p>
+                    <input type="text" bind:value={user}>
+                    <p>Overlay</p>
+                    <select name="types" id="types" bind:value={overlay}>
+                        <option value="normal">normal</option>
+                        <option value="warn">warn</option>
+                        <option value="mute">mute</option>
+                        <option value="jail">jail</option>
+                        <option value="ban">ban</option>
+                    </select>
+
+                    <p>Props</p>
+                    <select name="props" id="props" multiple bind:value={props}>
+                        <option value="rose">Rose</option>
+                        <option value="crown">Crown</option>
+                        <option value="labcoat">Labcoat</option>
+                    </select>
+
+                    <p>Data</p>
+                    <input type="text" bind:value={data}>
+
+                </div>
+                <div class="box3">
+                    <p>Gradient</p>
+                    <input type="color" bind:value={color1}>
+                    <input type="color" bind:value={color2}>
+
+                    <p>No Background?</p>
+                    <input type="checkbox" bind:checked={no_bg} />
+                </div>
             </div>
         </div>
     </div>
@@ -51,7 +88,7 @@
     }
     main { margin-left: 20px; margin-top: 20px; }
     .img { width: 25px; height: 25px; margin-right: 5px; }
-    img { width: 200px; margin-right: 20px; }
+    img { height: 300px; width: 300px; margin-right: 20px; }
     h2 { display: flex; align-items: center; }
     h2,h3 { margin-block-start: 0em; margin-block-end: 0.4em; }
     p { margin-block-start: 0.6em; margin-block-end: 0.6em; }
@@ -65,8 +102,9 @@
     .get { color: #ff9795; background-color: #1d1d1d; }
     .link { color: #95ffe3; background-color: #1d1d1d; }
 
-    .box { margin-top: 20px; display: flex; }
+    .imgbox { margin-top: 20px; margin-bottom: 10px; display: flex; }
     .box2 { padding-top: 0px; }
+    .box3 { margin-left: 25px }
 
     input, select {
         padding: 2px;
@@ -75,6 +113,21 @@
         color: white;
         font-family: 'Roboto', sans-serif;
         background-color: #1d1d1d;
+    }
+
+    select {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #2c2c2c;
+        border-radius: 0px;
     }
 
 
