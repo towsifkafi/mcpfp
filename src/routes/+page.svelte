@@ -18,7 +18,7 @@
 </script>
 <main>
     <h2><img class="img" src="https://minotar.net/avatar/Suss" alt="steve :)"> mcpfp - modified</h2>
-    <h3>a modifed version of <a href="">MauritsWilke/mcpfp</a> to use custom image gen</h3>
+    <h3>a modifed version of <a href="https://github.com/MauritsWilke/mcpfp">MauritsWilke/mcpfp</a> to use custom image gen</h3>
 
     <div class="docs">
         <h3>Base URL</h3>
@@ -76,6 +76,7 @@
                 </div>
             </div>
         </div>
+        <p>You can find the source code here: <a target="_blank" href="https://github.com/towsifkafi/mcpfp">https://github.com/towsifkafi/mcpfp</a></p>
     </div>
 
 </main>
