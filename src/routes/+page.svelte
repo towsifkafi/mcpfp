@@ -59,6 +59,7 @@
                         <option value="rose">Rose</option>
                         <option value="crown">Crown</option>
                         <option value="labcoat">Labcoat</option>
+                        <option value="batman">Batman</option>
                     </select>
 
                     <p>Data</p>

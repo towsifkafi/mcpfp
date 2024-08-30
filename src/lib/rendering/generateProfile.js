@@ -1,7 +1,7 @@
 import { getSkin } from "./mojang";
 import { loadImage, Canvas } from "skia-canvas";
 
-const available_props = ["crown", "labcoat", "rose"]
+const available_props = ["batman", "crown", "labcoat", "rose"]
 
 async function generatePfp(origin, username, ctx, overlay, data = false, flip = false, props = "") {
 	console.log(origin)
@@ -33,6 +33,7 @@ async function generatePfp(origin, username, ctx, overlay, data = false, flip = 
 		await drawSkin(ctx, skinImage);
 
 		let propsArray = props.split(",");
+		propsArray = sortArrayBasedOnReference(available_props, propsArray)
 		for(const prop of propsArray) {
 			await drawProp(origin, ctx, prop);
 		}
@@ -136,6 +137,15 @@ async function drawFailed(origin, ctx) {
 	ctx.drawImage(failed, 0, 0, 300, 300);
 	ctx.scale(16, 16);
 	ctx.drawImage(shading, 0, 0, 20, 20);
+}
+
+function sortArrayBasedOnReference(arr1, arr2) {
+    const indexMap = arr1.reduce((map, item, index) => {
+        map[item] = index;
+        return map;
+    }, {});
+
+    return arr2.slice().sort((a, b) => indexMap[a] - indexMap[b]);
 }
 
 export default generatePfp
