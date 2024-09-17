@@ -5,7 +5,6 @@ const available_props = ["batman", "crown", "labcoat", "rose"]
 
 async function generatePfp(origin, username, ctx, overlay, data = false, flip = false, props = "") {
 	console.log(origin)
-	const prefix = origin
 	try {
 		if (!username) {
 			drawFailed(origin, ctx);
@@ -27,8 +26,8 @@ async function generatePfp(origin, username, ctx, overlay, data = false, flip = 
 			skinImage = await loadImage(`https://minotar.net/skin/${username}`);
 		}
 		
-		const shading = await loadImage(`${prefix}/20x20pshading.png`);
-		const backdrop = await loadImage(`${prefix}/backdropshading.png`);
+		const shading = await loadImage(`${origin}/20x20pshading.png`);
+		const backdrop = await loadImage(`${origin}/backdropshading.png`);
 
 		await drawSkin(ctx, skinImage);
 
@@ -42,35 +41,35 @@ async function generatePfp(origin, username, ctx, overlay, data = false, flip = 
 
 		if(overlay == "ban") {
 
-			const banned = await loadImage(`${prefix}/banned_big.png`)
+			const banned = await loadImage(`${origin}/banned_big.png`)
 			
 			ctx.globalAlpha = 0.4;
 			ctx.drawImage(banned, 0, 0, 18.5, 18.5)
 
 		} else if(overlay =='warn') {
 
-			const warning = await loadImage(`${prefix}/warn.png`)
+			const warning = await loadImage(`${origin}/warn.png`)
 
 			ctx.globalAlpha = 0.4;
 			ctx.drawImage(warning, 0, 0, 18.5, 18.5)
 
 		} else if(overlay=='jail') {
 
-			const jail = await loadImage(`${prefix}/jail.png`)
+			const jail = await loadImage(`${origin}/jail.png`)
 			
 			ctx.globalAlpha = 0.9;
 			ctx.drawImage(jail, 0, 0, 18.5, 20)
 
 		} else if(overlay=='mute') {
 
-			const mute = await loadImage(`${prefix}/mute.png`)
+			const mute = await loadImage(`${origin}/mute.png`)
 			
 			ctx.globalAlpha = 0.8;
 			ctx.drawImage(mute, 0, 0, 18.5, 20)
 
 		} else if(overlay=="kick") {
 
-			const kick = await loadImage(`${prefix}/kick.png`)
+			const kick = await loadImage(`${origin}/kick.png`)
 			
 			ctx.globalAlpha = 0.6;
 			ctx.drawImage(kick, 0, 0, 18.5, 20)
@@ -83,7 +82,7 @@ async function generatePfp(origin, username, ctx, overlay, data = false, flip = 
 		}
 
 	} catch (e) {
-		await drawFailed(ctx);
+		await drawFailed(origin, ctx);
 	}
 }
 
@@ -128,9 +127,9 @@ async function drawProp(origin, ctx, propImage) {
 
 async function drawFailed(origin, ctx) {
 	
-	const failed = await loadImage(`${prefix}/PFP/notFound.png`);
-	const shading = await loadImage(`${prefix}/20x20pshading.png`);
-	const backdrop = await loadImage(`${prefix}/backdropshading.png`);
+	const failed = await loadImage(`${origin}/PFP/notFound.png`);
+	const shading = await loadImage(`${origin}/20x20pshading.png`);
+	const backdrop = await loadImage(`${origin}/backdropshading.png`);
 
 	ctx.drawImage(backdrop, 0, 0, 20, 20);
 	ctx.resetTransform();
