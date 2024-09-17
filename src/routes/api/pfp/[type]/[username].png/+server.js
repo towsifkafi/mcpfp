@@ -20,7 +20,8 @@ export async function GET({ params, url }) {
 
 	try {
 
-		const origin = url.origin
+		const origin = `http://${url.host}`
+		console.log(url)
 
 		const searchParams = url.searchParams;
 		const data = searchParams.get("data");
