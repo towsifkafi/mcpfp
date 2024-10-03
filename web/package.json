@@ -1,0 +1,20 @@
+{
+	"name": "mcpfp",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev --host",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^3.0.5",
+		"@sveltejs/kit": "^2.6.1",
+		"sass": "^1.79.4",
+		"scss": "^0.2.4",
+		"svelte": "^4.2.19",
+		"vite": "^5.4.8"
+	},
+	"type": "module",
+	"dependencies": {}
+}
