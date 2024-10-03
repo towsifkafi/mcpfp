@@ -13,7 +13,7 @@ const app = new Hono()
 
 app.use(logger())
 
-app.use('/*', serveStatic({ root: './static' }))
+app.use('/*', serveStatic({ root: './web' }))
 
 app.get('/api/pfp/:overlay/:file{.+\\.(png|jpg|webp)$}', async (c) => {
 
