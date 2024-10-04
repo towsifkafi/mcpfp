@@ -10,11 +10,14 @@ This project is an API server designed to generate cute profile pictures from Mi
 
 Also this project utilizes **🔥 Hono** and **🫓 Bun** along with [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) (instead of skia-canvas) resulting in faster performance.
 
+<div align="center">
 <img width="130" src="https://github.com/user-attachments/assets/a4feaa87-09a2-424c-a5f2-36edae1f6a29">
 <img width="130" src="https://github.com/user-attachments/assets/6a865eeb-db83-4926-90e2-d4c50b55e1da">
 <img width="130" src="https://github.com/user-attachments/assets/75e5be95-57a6-4736-9662-6e91f1950a13">
 <img width="130" src="https://github.com/user-attachments/assets/ea91189b-c948-4569-b4e1-88674fb86a38">
 <img width="130" src="https://github.com/user-attachments/assets/a9432826-ec91-48d8-87de-af2c5f02dcc2">
+<img width="130" src="https://github.com/user-attachments/assets/8b8a0103-3abc-47bf-9e94-8756e77ae438">
+</div>
 
 > You can try a public instance of this here: https://pfp.arcticbd.net
 
