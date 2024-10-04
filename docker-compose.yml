@@ -4,12 +4,10 @@ services:
     container_name: mcpfp-api
     build: .
     ports:
-      - "9002:9002"  # Expose the app on port 3000
+      - "9002:9002"  
     volumes:
-      - .:/usr/src/app  # Mount the current directory into the container for live reload
-      - /usr/src/app/node_modules  # Avoid overwriting node_modules with the host version
-    stdin_open: true  # Keep stdin open to run commands interactively
-    tty: true         # Keep the terminal attached
+      - .:/usr/src/app  
+      - /usr/src/app/node_modules
     environment:
       - NODE_ENV=development
     working_dir: /usr/src/app/api
