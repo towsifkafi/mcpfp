@@ -1,10 +1,11 @@
-<center>
+<div align="center">
 <img width="150" src="https://github.com/user-attachments/assets/59b82859-ccfa-4b06-ba7a-8160add8fdbf">
 <br>
-<span style="font-size: 4vh">mcpfp-api</span>
-</center>
 
-## Introduction
+# `mcpfp-api`
+</div>
+
+
 This project is an API server designed to generate cute profile pictures from Minecraft skins. It's based on [**mcpfp**](https://github.com/MauritsWilke/mcpfp) by **MauritsWilke**, with additional features like overlays and cosmetics.
 
 Also this project utilizes **🔥 Hono** and **🫓 Bun** along with [`@napi-rs/canvas`](https://www.npmjs.com/package/@napi-rs/canvas) (instead of skia-canvas) resulting in faster performance.
