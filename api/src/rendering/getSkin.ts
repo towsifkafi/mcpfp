@@ -1,12 +1,17 @@
 async function getSkin(username: string) {
+	return `https://minotar.net/skin/${username}`
+}
+
+async function getSkinMojang(username: string) {
 	if (!valid(username)) return Promise.reject(`${username} is an invalid username`);
-	return `https://mineskin.eu/skin/${username}`
+	
 	const UUID = await getUUID(username);
 	const response = await fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${UUID}`);
 	if (!response.ok) return Promise.reject(`Response returned statuscode ${response.status}`);
 	const json = await response.json();
 	const r = JSON.parse(atob(json.properties[0].value));
 	console.log(r)
+	
 	return r.textures.SKIN.url;
 }
 
@@ -23,6 +28,7 @@ function valid(username: string) {
 }
 
 export {
+	getSkinMojang,
 	getSkin,
 	getUUID,
 	valid

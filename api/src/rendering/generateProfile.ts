@@ -1,4 +1,4 @@
-import { getSkin } from "./mojang";
+import { getSkin } from "./getSkin";
 import { loadImage, SKRSContext2D, Image } from "@napi-rs/canvas";
 
 const available_props: { [key: string]: Image | null } = {
