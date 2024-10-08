@@ -15,21 +15,23 @@ app.use(logger())
 
 app.use('/*', serveStatic({ root: './web' }))
 
-app.get('/api/pfp/:overlay/:file{.+\\.(png|jpg|webp)$}', async (c) => {
+app.get('/api/pfp/:overlay/:file', async (c) => {
 
     const file = c.req.param('file')
     const overlay = c.req.param('overlay')
 
-    const format = file.split('.').pop();
-    let username = file.split('.')[0];
+    const hasExtension = file.includes('.');
+    let format = hasExtension ? file.split('.').pop() : 'png'; // Default to png if no extension
+    if(!["png","jpg","webp"].includes(format!)) format = "png";
 
-    console.log(username)
+    let username = hasExtension ? file.split('.')[0] : file;
     if(!username.length) username = "Steve"
 
     let gradient = c.req.query('gradient')
     let noBackground = c.req.query('no-background') == "true" ? true : false
     let data = c.req.query('data')
     let props = c.req.query('props')
+    let namemc = c.req.query('namemc') == "true" ? true : false
 
     //let scale = parseInt(c.req.query('scale')!) || 1;
     //scale = scale > 16 ? 16 : scale < 1 ? 1 : scale;
@@ -41,7 +43,12 @@ app.get('/api/pfp/:overlay/:file{.+\\.(png|jpg|webp)$}', async (c) => {
 
     if(!noBackground) changeGradient(ctx, gradient ? gradient.split('-').map(f => `#${f}`) : []);
 
-    await generatePfp(data || username, ctx, overlay, data ? true : false, props);
+    await generatePfp(data || username, ctx, { 
+        overlay, 
+        props,
+        data: data ? true : false,
+        namemc
+    });
     
     let bufferFormat = `image/${format === 'jpg' ? 'jpeg' : format}`;
     // @ts-ignore

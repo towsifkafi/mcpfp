@@ -15,6 +15,10 @@ async function getSkinMojang(username: string) {
 	return r.textures.SKIN.url;
 }
 
+async function getNameMCSkin(uid: string) {
+	return `https://s.namemc.com/i/${uid}.png`
+}
+
 async function getUUID(username: string) {
 	if (!valid(username)) return Promise.reject(`${username} is an invalid username`);
 	const response = await fetch(`https://api.mojang.com/users/profiles/minecraft/${username}`)
@@ -30,6 +34,7 @@ function valid(username: string) {
 export {
 	getSkinMojang,
 	getSkin,
+	getNameMCSkin,
 	getUUID,
 	valid
 }

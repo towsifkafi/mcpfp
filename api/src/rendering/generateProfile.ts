@@ -1,4 +1,4 @@
-import { getSkin } from "./getSkin";
+import { getSkin, getNameMCSkin } from "./getSkin";
 import { loadImage, SKRSContext2D, Image } from "@napi-rs/canvas";
 
 const available_props: { [key: string]: Image | null } = {
@@ -27,7 +27,7 @@ const overlays: { [key: string]: Image | null } = {
 
 
 
-async function generatePfp(username: string, ctx: SKRSContext2D, overlay: string, data = false, props = "") {
+async function generatePfp(username: string, ctx: SKRSContext2D, { overlay = "normal", props = "", data = false, namemc = false }) {
 	try {
 		if (!username) {
 			drawFailed(ctx);
@@ -35,9 +35,11 @@ async function generatePfp(username: string, ctx: SKRSContext2D, overlay: string
 		}
 		
 		let skinURL;
+
 		if(data) {
-			//console.log(username)
 			skinURL = username
+		} else if(namemc) {
+			skinURL = await getNameMCSkin(username)
 		} else {
 			skinURL = await getSkin(username)
 		}
