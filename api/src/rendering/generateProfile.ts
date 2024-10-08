@@ -12,8 +12,16 @@ const overlays: { [key: string]: Image | null } = {
     kick: null,
 };
 
+let shading: Image;
+let backdrop: Image;
+
 const overlayFiles = await readdir("./assets/overlays", { recursive: true });
 const cosmetics = await readdir("./assets/cosmetics", { recursive: true });
+
+(async() => {
+	shading = await loadImage(`./assets/20x20pshading.png`);
+	backdrop = await loadImage(`./assets/backdropshading.png`);
+})()
 
 cosmetics.forEach(async (file) => { available_props[file.split(".")[0]] = await loadImage(`assets/cosmetics/${file}`) })
 overlayFiles.forEach(async (file) => { overlays[file.split(".")[0]] = await loadImage(`assets/overlays/${file}`) })
@@ -41,9 +49,6 @@ async function generatePfp(username: string, ctx: SKRSContext2D, { overlay = "no
 		} catch(err) {
 			skinImage = await loadImage(`https://minotar.net/skin/${username}`);
 		}
-		
-		const shading = await loadImage(`assets/20x20pshading.png`);
-		const backdrop = await loadImage(`assets/backdropshading.png`);
 
 		await drawSkin(ctx, skinImage);
 
