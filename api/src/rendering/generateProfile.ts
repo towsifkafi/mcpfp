@@ -1,3 +1,4 @@
+import { readdir } from "node:fs/promises";
 import { getSkin, getNameMCSkin } from "./getSkin";
 import { loadImage, SKRSContext2D, Image } from "@napi-rs/canvas";
 
@@ -11,21 +12,11 @@ const overlays: { [key: string]: Image | null } = {
     kick: null,
 };
 
-(async () => {
+const overlayFiles = await readdir("./assets/overlays", { recursive: true });
+const cosmetics = await readdir("./assets/cosmetics", { recursive: true });
 
-    available_props["batman"] = await loadImage(`assets/cosmetics/batman.png`)
-    available_props["crown"] = await loadImage(`assets/cosmetics/crown.png`)
-    available_props["labcoat"] = await loadImage(`assets/cosmetics/labcoat.png`)
-    available_props["rose"] = await loadImage(`assets/cosmetics/rose.png`)
-
-    overlays["ban"] = await loadImage(`assets/overlays/banned_big.png`)
-    overlays["warn"] = await loadImage(`assets/overlays/warn.png`)
-    overlays["jail"] = await loadImage(`assets/overlays/jail.png`)
-    overlays["mute"] = await loadImage(`assets/overlays/mute.png`)
-    overlays["kick"] = await loadImage(`assets/overlays/kick.png`)
-})();
-
-
+cosmetics.forEach(async (file) => { available_props[file.split(".")[0]] = await loadImage(`assets/cosmetics/${file}`) })
+overlayFiles.forEach(async (file) => { overlays[file.split(".")[0]] = await loadImage(`assets/overlays/${file}`) })
 
 async function generatePfp(username: string, ctx: SKRSContext2D, { overlay = "normal", props = "", data = false, namemc = false }) {
 	try {

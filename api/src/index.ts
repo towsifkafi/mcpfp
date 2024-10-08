@@ -61,10 +61,8 @@ app.get('/api/pfp/:overlay/:file', async (c) => {
 })
 
 const port = process.env.PORT || 9002;
-console.log(`Server is running on port ${port}`)
 
 showRoutes(app)
-
 export default {
     port,
     fetch: app.fetch,
