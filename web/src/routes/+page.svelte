@@ -6,15 +6,26 @@
     let username = "{username}"
     let user = "Dinnerbone"
     let overlay = "normal"
-    let data = ""
+    let url = ""
 
     let no_bg = false;
     let flip = false;
+    let namemc = false;
 
     let color1 = ""
     let color2 = ""
 
     let props = "";
+
+    let query = ""
+    $: query = generateQuery([
+        { url },
+        { namemc: namemc ? "true" : "" },
+        { flip: flip ? "true" : "" },
+        { "no-background": no_bg ? "true" : "" },
+        { "props": props.length ? props.join(",") : "" },
+        { "gradient": !no_bg && color1 && color2 ? `${color1.replace("#", "")}-${color2.replace("#", "")}` : "" }
+    ])
 </script>
 <main>
     <h2><img class="img" src="https://minotar.net/avatar/Suss" alt="steve :)"> mcpfp - modified</h2>
@@ -30,18 +41,10 @@
         <p>Minecraft full body skin image with types for custom img gen</p>
         <code class="get">GET /api/pfp/{types}/{username}.png</code>
         <p>Available types: <code>normal</code>,<code>warn</code>,<code>mute</code>,<code>jail</code>,<code>ban</code>,<code>kick</code></p>
-        <p>Example: <code class="link">{$page.url}api/pfp/{overlay}/{user}.png{generateQuery([
-            { data, "no-background": no_bg ? "true" : "" },
-            { data, "props": props.length ? props.join(",") : "" },
-            { data, "gradient": !no_bg && color1 && color2 ? `${color1.replace("#", "")}-${color2.replace("#", "")}` : "" }
-        ])}</code></p>
+        <p>Example: <code class="link">{$page.url}api/pfp/{overlay}/{user}.png{query}</code></p>
         <div class="box">
             <div class="imgbox">
-                <img src="{$page.url}api/pfp/{overlay}/{user}.png{generateQuery([
-                    { data, "no-background": no_bg ? "true" : "" },
-                    { data, "props": props.length ? props.join(",") : "" },
-                    { data, "gradient": !no_bg && color1 && color2 ? `${color1.replace("#", "")}-${color2.replace("#", "")}` : "" }
-                ])}" alt="">
+                <img src="{$page.url}api/pfp/{overlay}/{user}.png{query}" alt="">
                 <div class="box2">
                     <p>Username</p>
                     <input type="text" bind:value={user}>
@@ -62,8 +65,8 @@
                         <option value="batman">Batman</option>
                     </select>
 
-                    <p>Data</p>
-                    <input type="text" bind:value={data}>
+                    <p>Use URL</p>
+                    <input type="text" bind:value={url}>
 
                 </div>
                 <div class="box3">
@@ -73,6 +76,9 @@
 
                     <p>No Background?</p>
                     <input type="checkbox" bind:checked={no_bg} />
+
+                    <p>NameMC skin?</p>
+                    <input type="checkbox" bind:checked={namemc} />
                 </div>
             </div>
         </div>
