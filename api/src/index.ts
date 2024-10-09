@@ -29,7 +29,7 @@ app.get('/api/pfp/:overlay/:file', async (c) => {
 
     let gradient = c.req.query('gradient')
     let noBackground = c.req.query('no-background') == "true" ? true : false
-    let data = c.req.query('data')
+    let url = c.req.query('url')
     let props = c.req.query('props')
     let namemc = c.req.query('namemc') == "true" ? true : false
 
@@ -43,12 +43,16 @@ app.get('/api/pfp/:overlay/:file', async (c) => {
 
     if(!noBackground) changeGradient(ctx, gradient ? gradient.split('-').map(f => `#${f}`) : []);
 
-    await generatePfp(data || username, ctx, { 
-        overlay, 
-        props,
-        data: data ? true : false,
-        namemc
-    });
+    try {
+        await generatePfp(url || username, ctx, { 
+            overlay, 
+            props,
+            url: url ? true : false,
+            namemc
+        });
+    } catch (e) {
+        console.log(e)
+    }
     
     let bufferFormat = `image/${format === 'jpg' ? 'jpeg' : format}`;
     // @ts-ignore

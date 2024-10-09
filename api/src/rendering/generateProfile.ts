@@ -1,6 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { getSkin, getNameMCSkin } from "./getSkin";
 import { loadImage, SKRSContext2D, Image } from "@napi-rs/canvas";
+import { checkURL } from "../utils/checkURL";
 
 const available_props: { [key: string]: Image | null } = {
     batman: null, crown: null, labcoat: null, rose: null
@@ -26,7 +27,7 @@ const cosmetics = await readdir("./assets/cosmetics", { recursive: true });
 cosmetics.forEach(async (file) => { available_props[file.split(".")[0]] = await loadImage(`assets/cosmetics/${file}`) })
 overlayFiles.forEach(async (file) => { overlays[file.split(".")[0]] = await loadImage(`assets/overlays/${file}`) })
 
-async function generatePfp(username: string, ctx: SKRSContext2D, { overlay = "normal", props = "", data = false, namemc = false }) {
+async function generatePfp(username: string, ctx: SKRSContext2D, { overlay = "normal", props = "", url = false, namemc = false }) {
 	try {
 		if (!username) {
 			drawFailed(ctx);
@@ -35,8 +36,9 @@ async function generatePfp(username: string, ctx: SKRSContext2D, { overlay = "no
 		
 		let skinURL;
 
-		if(data) {
-			skinURL = username
+		if(url) {
+			if(checkURL(username)) { skinURL = username }
+				else throw new Error("Invalid URL")
 		} else if(namemc) {
 			skinURL = await getNameMCSkin(username)
 		} else {
