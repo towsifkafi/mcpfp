@@ -22,11 +22,12 @@ app.get('/api/pfp/:overlay/:file', async (c) => {
 
     const hasExtension = file.includes('.');
     let format = hasExtension ? file.split('.').pop() : 'png'; // Default to png if no extension
-    if(!["png","jpg","webp"].includes(format!)) format = "png";
+    if (!["png", "jpg", "webp"].includes(format!)) format = "png";
 
     let username = hasExtension ? file.split('.')[0] : file;
-    if(!username.length) username = "Steve"
+    if (!username.length) username = "Steve"
 
+    let pfpType = c.req.query('pfp-type') || "normal"
     let gradient = c.req.query('gradient')
     let noBackground = c.req.query('no-background') == "true" ? true : false
     let url = c.req.query('url')
@@ -35,17 +36,18 @@ app.get('/api/pfp/:overlay/:file', async (c) => {
 
     //let scale = parseInt(c.req.query('scale')!) || 1;
     //scale = scale > 16 ? 16 : scale < 1 ? 1 : scale;
-    
+
     const canvas = createCanvas(300, 300);
     const ctx = canvas.getContext("2d");
     ctx.scale(16, 16)
     ctx.imageSmoothingEnabled = false;
 
-    if(!noBackground) changeGradient(ctx, gradient ? gradient.split('-').map(f => `#${f}`) : []);
+    if (!noBackground) changeGradient(ctx, gradient ? gradient.split('-').map(f => `#${f}`) : []);
 
     try {
-        await generatePfp(url || username, ctx, { 
-            overlay, 
+        await generatePfp(url || username, ctx, {
+            pfpType,
+            overlay,
             props,
             url: url ? true : false,
             namemc
@@ -53,7 +55,7 @@ app.get('/api/pfp/:overlay/:file', async (c) => {
     } catch (e) {
         console.log(e)
     }
-    
+
     let bufferFormat = `image/${format === 'jpg' ? 'jpeg' : format}`;
     // @ts-ignore
     let imageBuffer = canvas.toBuffer(bufferFormat, { quality: 100 });
